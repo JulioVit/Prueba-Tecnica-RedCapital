@@ -42,7 +42,7 @@
         <tr>
             <td>{{$u->name}}</td>
             <td>{{$u->email}}</td>
-            <td>-</td>
+            <td><a href="form">Link text</a></td>
         </tr>
     @endforeach
 </table>
