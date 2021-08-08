@@ -20,7 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', "App\Http\Controllers\HomeController@index")->name('home');
 
-Route::get('/form/{id}', [App\Http\Controllers\ArchiveController::class, 'form'])->name('form');
-Route::post('/guardar', [App\Http\Controllers\ArchiveController::class, 'guardar'])->name('guardar');
+Route::get('/form', "App\Http\Controllers\ArchiveController@form")->name('form');
+Route::post('/guardar', "App\Http\Controllers\ArchiveController@guardar")->name('guardar');
+
+Route::post('/descargar', "App\Http\Controllers\ArchiveController@descargar")->name('descargar');

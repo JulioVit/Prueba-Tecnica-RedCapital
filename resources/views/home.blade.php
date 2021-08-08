@@ -33,18 +33,33 @@
 <body>
 
 <table id="customers">
+    <br>
+    <a>Click sobre el nombre del archivo para descargar el mismo.</a>
+    <br>
     <tr>
-        <th>Nombre</th>
-        <th>Correo Electrónico</th>
-        <th>Archivos Vinculados</th>
+        <th>Nombre del Archivo</th>
+        <th>Fecha de Creación</th>
+        <th>Opciones</th>
     </tr>
-    @foreach($users as $u)
+    @foreach($archivos as $a)
         <tr>
-            <td>{{$u->name}}</td>
-            <td>{{$u->email}}</td>
-            <td><a href="form">Link text</a></td>
+            <td>{{$a->name}}</td>
+            <td>{{$a->created_at}}</td>
+            <td><a href="/download">Descargar</a></td>
         </tr>
     @endforeach
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <a>Para agregar un archivo nuevo debe considerar las extensiones soportadas. Ante cualquier problema comuniquese con un administrador</a>
+                <form action="/guardar" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="urlarchivo">
+                    <input type="submit" value="subir">
+                </form>
+            </div>
+        </div>
+    </div>
 </table>
 
 </body>
