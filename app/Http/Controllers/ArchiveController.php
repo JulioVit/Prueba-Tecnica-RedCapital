@@ -9,34 +9,30 @@ use Illuminate\Support\Facades\Response;
 
 class ArchiveController extends Controller
 {
-    public function form(){
-        return view('form');
-    }
-
     public function guardar(Request $request){
-        //dd($request->file());
+        $user = Auth::id();
+        $archivos = Archive::where('user_id', $user)->get();
+        $context = ['archivos' => $archivos];
         if($request->hasFile("urlarchivo")){
             $file = $request->file("urlarchivo");
             $extension = $file->guessExtension();
             // Extensiones permitidas en el sistema
             $compatibles = array("pdf", "doc", "docx", "csv", "xlsx", "xml", "txt");
-            //dd($compatibles);
             if(in_array($extension, $compatibles)){
                 $nombre = "Doc_".time().".".$file->guessExtension();
                 $ruta = public_path("Archivos/".$nombre);
                 copy($file, $ruta);
                 $archivo = new Archive;
                 $archivo->name = $nombre;
-                $user = Auth::id();
                 $archivo->user_id = $user;
                 $archivo->save();
-                return view('form');
+                return redirect('home', 302, $context);
             }else{
                 dd("Formato no soportado");
-                return view('form');
+                return redirect('home', 302, $context);
             }
         }
-        return view('form');
+        return redirect('home', 302, $context);
     }
 
     public function descargar($filename){

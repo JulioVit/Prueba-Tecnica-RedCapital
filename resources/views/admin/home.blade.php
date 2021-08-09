@@ -30,25 +30,26 @@
         }
     </style>
 </head>
-<body>
-
-<table id="customers">
-    <br>
-    <a>Bienvenido al Panel de Administración, puede revisar los archivos de los usuarios del sistema u agregar unos nuevos</a>
-    <br>
-    <tr>
-        <th>Nombre de Usuario</th>
-        <th>Correo Electrónico</th>
-        <th>Opciones</th>
-    </tr>
-    @foreach($users as $u)
-        <tr>
-            <td>{{$u->name}}</td>
-            <td>{{$u->email}}</td>
-            <td><a href="/admin/user">Ver Historico</a></td>
-        </tr>
-    @endforeach
+<body onload="cargarUsuarios()">
     <div class="container">
+        <h4>Bienvenido al Panel de Administración</h4>
+        <table id="customers">
+            <br>
+            <a>Puede revisar los archivos de los usuarios del sistema u agregar unos nuevos</a>
+            <br>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <th>Correo Electrónico</th>
+                <th>Opciones</th>
+            </tr>
+            @foreach($users as $u)
+                <tr>
+                    <td>{{$u->name}}</td>
+                    <td>{{$u->email}}</td>
+                    <td><a href="/admin/{{$u->id}}">Ver Historico</a></td>
+                </tr>
+            @endforeach
+        </table>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <a>Para agregar un archivo nuevo debe considerar las extensiones soportadas. Debe señalar el usuario al cual se le asocia el archivo.</a>
@@ -60,30 +61,6 @@
             </div>
         </div>
     </div>
-</table>
-
 </body>
 </html>
-
-{{--
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
---}}
 @endsection

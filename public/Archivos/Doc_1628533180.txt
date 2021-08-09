@@ -1,0 +1,47 @@
+tipo = input("Ingrese el tipo de reporte que desea archivar: ")
+paginasTotal = 0
+paginasAvance = 0
+paginasResultado = 0
+reporteNoPermitido = 0
+reportesResultado = 0
+reportesResultadoImpar = 0
+reportesTotales = 0
+while tipo != "Stop":
+  if tipo != "avance" and tipo != "resultado" and tipo != "Stop":
+    print("Tipo de reporte invalido")
+  else:
+    while True:
+      try:
+        paginas = int(input("Ingrese el numero de paginas del reporte a archivar: "))
+        if paginas < 1:
+          print("Numero invalido de paginas de reporte")
+        else:
+          print("")
+          break
+      except:
+        print("Debe ingresar un NUMERO de paginas")
+    reportesTotales += 1
+    if tipo == "avance":
+        paginasAvance += paginas
+        paginasTotal += paginas
+        if paginas > 100:
+          reporteNoPermitido += 1
+    elif tipo == "resultado":
+      reportesResultado += 1
+      paginasResultado += paginas
+      paginasTotal += paginas
+      if paginas % 2 == 1:
+        reportesResultadoImpar += 1
+  tipo = input("Ingrese el tipo de reporte que desea archivar: ")
+print("Numero de paginas de reportes totales a archivar: ", paginasTotal)
+print("Numero de paginas de reportes de avance a archivar: ", paginasAvance)
+print("Numero de paginas de reportes de resultado a archivar: ", paginasResultado)
+print("Numero de reportes de avance de mas de 100 paginas: ", reporteNoPermitido)
+
+try:
+  porcentajeResultado = (reportesResultado/reportesTotales)*100
+  porcentajeResultadoImpar = (reportesResultadoImpar/reportesResultado)*100
+  print("Porcentaje de reportes de resultado: ", porcentajeResultado)
+  print("Porcentaje de reportes de paginas impares de entre los reportes de resultado: ", porcentajeResultadoImpar)
+except:
+  print("No hay reportes de resultado para determinar porcentajes estadisticos")

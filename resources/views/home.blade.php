@@ -45,7 +45,7 @@
         <tr>
             <td>{{$a->name}}</td>
             <td>{{$a->created_at}}</td>
-            <td><a href="/download">Descargar</a></td>
+            <td><a href="/descargar/{{$a->name}}">Descargar</a></td>
         </tr>
     @endforeach
     <div class="container">
@@ -64,26 +64,6 @@
 
 </body>
 </html>
+<script src="{{ asset('js/home.js') }}"></script>
 
-{{--
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
---}}
 @endsection

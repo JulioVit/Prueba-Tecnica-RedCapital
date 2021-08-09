@@ -1,0 +1,40 @@
+ganancias = 0
+buenProyecto = 0
+mayorIngreso = 0
+mayorProyecto = ""
+costoTotal = 0
+cantProyectos = 0
+cant50 = 0
+print("Los proyectos que generan ganancias son: ")
+archivo = open("Proyectos.txt","r")
+linea = archivo.readline().strip()
+while linea != "":
+  partes = linea.split(",")
+  codigo = partes[0]
+  costo = int(partes[1])
+  fechaInicio = partes[2]
+  ingresos = int(partes[3])
+  fechaTermino = partes[4]
+  ganancias = ingresos - costo
+  if ganancias > 0:
+    buenProyecto += 1
+    print(codigo)
+  if ingresos > mayorIngreso:
+    mayorIngreso = ingresos
+    mayorProyecto = codigo
+  if costo < 50000:
+    cant50 += 1
+  cantProyectos += 1
+  costoTotal += costo
+  linea = archivo.readline().strip()
+print("La cantidad total de proyectos que generan ganancias es de: ")  
+print(buenProyecto)
+print("El proyecto que genero el mayor ingreso fue: ")  
+print(mayorProyecto)
+print("El promedio de los costos de los proyectos fue de: ")
+prom = costoTotal/cantProyectos
+print(prom)
+print("El porcentaje de los proyectos que obtuvieron un costo menor a 50.000 es de: ")
+porcentaje = (cant50/cantProyectos)*100
+print(porcentaje,"%")
+archivo.close()

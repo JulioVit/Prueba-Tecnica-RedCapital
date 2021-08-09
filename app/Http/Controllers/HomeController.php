@@ -29,19 +29,29 @@ class HomeController extends Controller
     {
         if(auth()->user()->role == "Admin"){
             $users = User::where('role', 'Usuario')->get();
-            return view('admin.home', ['users' => $users]);
+            $context = ['users' => $users];
+            return view('admin.home', $context);
         }
         $user = Auth::id();
         $archivos = Archive::where('user_id', $user)->get();
-        return view('home', ['archivos' => $archivos]);
+        $context = ['archivos' => $archivos];
+        return view('home', $context);
     }
 
     public function admin(){
         if(auth()->user()->isAdmin){
             $users = User::where('role', 'Usuario')->get();
-            return view('admin.home', ['users' => $users]);
+            $context = ['users' => $users];
+            return view('admin.home', $context);
         }else{
             return response("Acceso Prohibido", 403);
         }
+    }
+
+    public function admin_user($id){
+        $user = User::where('role', 'Usuario')->where('id', $id)->first();
+        $archivos = Archive::where('user_id', $user->id)->get();
+        $context = ['archivos' => $archivos, 'user' => $user];
+        return view('admin.user', $context);
     }
 }
