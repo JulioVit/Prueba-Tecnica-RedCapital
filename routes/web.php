@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,15 +21,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', "App\Http\Controllers\HomeController@index")->name('home');
-
-Route::get('/admin', "App\Http\Controllers\HomeController@admin")->name('admin');
-
-Route::post('/guardar', "App\Http\Controllers\ArchiveController@guardar")->name('guardar')
+Route::get('/home', "App\Http\Controllers\HomeController@index")->name('home')->middleware('auth');
+Route::post('/home', "App\Http\Controllers\ArchiveController@guardar")->name('guardar')
     ->middleware('auth');
 
-Route::get('/descargar/{filename}', "App\Http\Controllers\ArchiveController@descargar")->name('descargar')
-    ->where('filename', '[A-Za-z0-9\-\_\.]+')->middleware('auth');
+Route::get('/descargar/{filename}', "App\Http\Controllers\ArchiveController@descargar")
+    ->name('descargar')->where('filename', '[A-Za-z0-9\-\_\.]+')->middleware('auth');
 
-Route::get('/admin/{id}', "App\Http\Controllers\HomeController@admin_user")->name('admin_user')
-    ->where('id', '[0-9]+');
+Route::group(['prefix'=>'admin','middleware'=>Admin::class], function(){
+    require __DIR__ . '/admin.php';
+});
+
+

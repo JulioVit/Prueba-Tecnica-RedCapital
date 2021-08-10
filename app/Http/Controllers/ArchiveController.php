@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Archive;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -19,13 +20,7 @@ class ArchiveController extends Controller
             // Extensiones permitidas en el sistema
             $compatibles = array("pdf", "doc", "docx", "csv", "xlsx", "xml", "txt");
             if(in_array($extension, $compatibles)){
-                $nombre = "Doc_".time().".".$file->guessExtension();
-                $ruta = public_path("Archivos/".$nombre);
-                copy($file, $ruta);
-                $archivo = new Archive;
-                $archivo->name = $nombre;
-                $archivo->user_id = $user;
-                $archivo->save();
+                $this->guardarArchivo($file, $user);
                 return redirect('home', 302, $context);
             }else{
                 dd("Formato no soportado");
@@ -33,6 +28,37 @@ class ArchiveController extends Controller
             }
         }
         return redirect('home', 302, $context);
+    }
+
+    public function guardar_admin(Request $request){
+        $users = User::where('role', 'Usuario')->get();
+        $context = ['users' => $users];
+        if($request->hasFile("urlarchivo")){
+            $data = $request->all();
+            $id = $request->input('user');
+            $file = $request->file("urlarchivo");
+            $extension = $file->guessExtension();
+            // Extensiones permitidas en el sistema
+            $compatibles = array("pdf", "doc", "docx", "csv", "xlsx", "xml", "txt");
+            if(in_array($extension, $compatibles)){
+                $this->guardarArchivo($file, $id);
+                return redirect('admin', 302, $context);
+            }else{
+                dd("Formato no soportado");
+                return redirect('admin', 302, $context);
+            }
+        }
+        return redirect('admin', 302, $context);
+    }
+
+    protected function guardarArchivo($file, $id){
+        $nombre = "Doc_".time().".".$file->guessExtension();
+        $ruta = public_path("Archivos/".$nombre);
+        copy($file, $ruta);
+        $archivo = new Archive;
+        $archivo->name = $nombre;
+        $archivo->user_id = $id;
+        $archivo->save();
     }
 
     public function descargar($filename){

@@ -39,13 +39,9 @@ class HomeController extends Controller
     }
 
     public function admin(){
-        if(auth()->user()->isAdmin){
-            $users = User::where('role', 'Usuario')->get();
-            $context = ['users' => $users];
-            return view('admin.home', $context);
-        }else{
-            return response("Acceso Prohibido", 403);
-        }
+        $users = User::where('role', 'Usuario')->get();
+        $context = ['users' => $users];
+        return view('admin.home', $context);
     }
 
     public function admin_user($id){

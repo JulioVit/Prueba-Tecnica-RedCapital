@@ -52,7 +52,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <a>Para agregar un archivo nuevo debe considerar las extensiones soportadas. Ante cualquier problema comuniquese con un administrador</a>
-                <form action="/guardar" method="post" enctype="multipart/form-data">
+                <form action="/home" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="urlarchivo">
                     <input type="submit" value="subir">

@@ -53,11 +53,21 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <a>Para agregar un archivo nuevo debe considerar las extensiones soportadas. Debe señalar el usuario al cual se le asocia el archivo.</a>
-                <form action="/guardar" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="urlarchivo">
-                    <input type="submit" value="subir">
-                </form>
+                <div>
+                    <form id="formSubida" action="/admin" method="POST" autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="urlarchivo" id="archivo">
+                        <label for="user">Escoja un usuario:</label>
+                        <select name="user" id="user">
+                            @foreach($users as $u)
+                                <option value={{$u->id}}>{{$u->name}}</option>
+                            @endforeach
+                        </select>
+                        <button id="btSubirArchivo" type="submit" class="btn btn-success botonGuardarAsignatura">
+                            Vincular archivo al usuario
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
