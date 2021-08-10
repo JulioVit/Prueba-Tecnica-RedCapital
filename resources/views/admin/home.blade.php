@@ -63,7 +63,7 @@
                                 <option value={{$u->id}}>{{$u->name}}</option>
                             @endforeach
                         </select>
-                        <button id="btSubirArchivo" type="submit" class="btn btn-success botonGuardarAsignatura">
+                        <button id="btSubirArchivo" type="submit" class="btn btn-success botonSubirArchivo">
                             Vincular archivo al usuario
                         </button>
                     </form>

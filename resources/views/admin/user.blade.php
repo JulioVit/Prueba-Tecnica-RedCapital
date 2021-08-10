@@ -61,6 +61,9 @@
                 </tr>
             @endforeach
         </table>
+        <button id="btVolver" onclick="history.go(-1)" class="btn btn-success botonVolver">
+            Volver
+        </button>
     </body>
 </html>
 @endsection
