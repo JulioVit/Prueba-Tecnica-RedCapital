@@ -1,63 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# IMPORTANTE
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Si está viendo este archivo como un usuario normal, comuniquese lo antes posible con un administrador para informarle sobre esto.
 
-## About Laravel
+## Contenidos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Contenidos**
+1. [Clonar Proyecto](#gitClone)
+2. [Instalar Laragon](#laragonInstall)
+3. [Instalar Dependencias](#dependencias)
+4. [Crear Base de datos para el proyecto](#createDatabase)
+5. [Migrations y Seeders](#migrateSeed)
+6. [Levantar Servidor](#runserver)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<a name="gitClone"></a>
+## Clonar Proyecto
+Para continuar el desarrollo del sistema en otro equipo, usted debe clonar el proyecto a través de github mediante la consola de windows ejecutando la siguiente instruccion (verifique que se encuentre en el directorio deseado):
+  ```
+  git clone https://github.com/JulioVit/Prueba-Tecnica-RedCapital.git
+  ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<a name="laragonInstall"></a>
+## Instalar Laragon
+Se requiere instalar Laragon de 64 bits, para ello se prefiere la versión mas actual. Se utilizó la versión 5.0 durante el desarrollo.
 
-## Learning Laravel
+<a name="dependencias"></a>
+## Instalar Dependencias
+1. Ejecutar la siguiente instruccion en la consola de comandos ubicada en la raiz del proyecto (la ubicacion dependera de la ruta en la cual se haya clonado el proyecto)
+  ```
+  composer self-update
+  ```
+  
+Nota: Si el comando le genera un error entonces se recomienda realizar una instalación limpia de composer. Composer es utilizado para manejar comodamente el proceso de instalación de dependencias, puede no usar composer pero para ello deberá instalar cada una de las dependencias manualmente.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. Una vez composer se encuentre actualizado o cuente con una instalación limpia de Composer, debe ejecutar la siguiente instrucción (en la ruta raiz del proyecto).
+  ```
+  composer update
+  ```
+Esta instrucción identificará las dependencias del proyecto con sus correspondientes versiones y procedera a descargar todas aquellas que no se tengan ya instaladas. Si se presentan errores al ejecutar esta instrucción, en la gran mayoría de los casos se debe a problemas de compatibilidad de versiones con otras herramientas/librerias instaladas en el equipo ajenas al proyecto. Ante esto se recomienda seguir las sugerencias que entrega el error o buscar información adicional sobre este mismo.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Para directamente evitar que ocurran estos errores se recomienda trabajar en un entorno virtual o mediante el uso de contenedores.
 
-## Laravel Sponsors
+<a name="createDatabase"></a>
+## Crear la Base de Datos para el proyecto
+1. Instale una herramienta de gestión de bases de datos como heidisql o mysql workbench
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+2. En el menú principal de Laragon, seleccione la opcion de "Database" o "Database Management" (el nombre dependerá de la versión específica de Laragon).
 
-### Premium Partners
+3. Proceda a generar una nueva base de datos con credenciales y nombre a elección. De preferencia:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
+   ```
+   nombre de base de datos: PruebaTecnica
+   user: root
+   password: 
+   ```
 
-## Contributing
+Nota: Este paso dependerá de la herramienta de gestión de bases de datos que tenga instalada.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. En el archivo **.env** ubicado en la raiz del proyecto
 
-## Code of Conduct
+En el archivo mencionado anteriormente debemos ubicar y modificar las siguientes lineas con las credenciales que se quiera utilizar. Por defecto se encuentran las credenciales correspondientes a la ejecución via la extensión Laravel Sail la cual ejecuta el proyecto via Docker:
+   ```
+   DB_DATABASE=PruebaTecnica
+   DB_USERNAME=sail
+   DB_PASSWORD=password
+   ```
+Nota: Si quiere ejecutar el proyecto via Docker, entonces se debe dejar el archivo tal y como se encuentra por defecto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<a name="migrateSeed"></a>
+## Migrations
+Para migrar las tablas es necesario ejecutar la siguiente instruccion en la consola de windows (Es obligatorio ejecutar esta instruccion donde se encuentra almacenado el ProyectoGuiarConsultores)
+   ```
+   php artisan migrate:fresh --seed
+   ```
+Este comando generará las tablas de la base de datos con ciertos datos de prueba.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<a name="runserver"></a>
+## Levantar Servidor
+Para visualizar la pagina web se debe ejecutar la siguiente instruccion en la consola de comandos ubicada en la raiz del proyecto.
+   ```
+   php artisan serve
+   ```
